@@ -2,6 +2,9 @@ import { Suspense } from "react";
 import Link from "next/link";
 import GalleryGrid from "@/components/gallery/GalleryGrid";
 import PolaroidCard from "@/components/polaroid/PolaroidCard";
+import { prisma } from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
 
 interface Snap {
   id: string;
@@ -13,13 +16,15 @@ interface Snap {
 
 async function getSnaps(): Promise<Snap[]> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-    const res = await fetch(`${baseUrl}/api/snaps`, {
-      cache: "no-store",
+    const snaps = await prisma.snap.findMany({
+      orderBy: { createdAt: "desc" },
     });
-    if (!res.ok) return [];
-    return res.json();
-  } catch {
+    return snaps.map((snap) => ({
+      ...snap,
+      createdAt: snap.createdAt.toISOString(),
+    }));
+  } catch (error) {
+    console.error("Failed to fetch snaps:", error);
     return [];
   }
 }
