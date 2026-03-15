@@ -49,7 +49,26 @@ function GallerySkeleton() {
 function EmptyState() {
   return (
     <div className="flex flex-col items-center justify-center py-20">
-      <div className="text-6xl mb-4">📸</div>
+      <div className="mb-6 text-[#E8622A]">
+        <svg
+          width={64}
+          height={64}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1.5}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <rect x="2" y="4" width="20" height="16" rx="2" />
+          <path d="M7 4V2" />
+          <path d="M17 4V2" />
+          <circle cx="12" cy="13" r="4" />
+          <path d="M12 9v1" />
+          <path d="M10 13h1" />
+          <path d="M13 13h1" />
+        </svg>
+      </div>
       <h2 className="font-playfair text-[22px] font-bold text-[#3B1F0A] mb-2">
         No snaps yet
       </h2>
